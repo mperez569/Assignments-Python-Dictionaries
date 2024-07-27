@@ -33,14 +33,14 @@ def open_ticket(tickets, next_id, customer, issue):
     print(f"{ticket_id} opened for {customer}.")
     return next_id + 1
 
-def update_ticket_status(tickets, ticket_id, status):
+def update(tickets, ticket_id, status):
     if ticket_id in tickets:
         tickets[ticket_id]["Status"] = status
         print(f"{ticket_id} status updated to {status}.")
     else:
         print(f"{ticket_id} not found.")
 
-def display_tickets(tickets, status_filter=None):
+def display(tickets, status_filter=None):
     for ticket_id, info in tickets.items():
         if status_filter is None or info["Status"] == status_filter:
             print(f"{ticket_id}: {info}")
@@ -66,15 +66,15 @@ def main():
         elif choice == '2':
             ticket_id = input("Enter ticket ID: ")
             status = input("Enter new status (open/closed): ")
-            update_ticket_status(service_tickets, ticket_id, status)
+            update(service_tickets, ticket_id, status)
         elif choice == '3':
-            display_tickets(service_tickets)
+            display(service_tickets)
         elif choice == '4':
             status_filter = input("Enter status to filter by (open/closed): ")
-            if status_filter!= "closed" or status_filter!= "open":
-                print("Invalid input, try again!")
-            else:
+            if status_filter == "closed" or status_filter == "open":
                 display_tickets(service_tickets, status_filter)
+            else:
+                print("Invalid input, try again!")
         elif choice == '5':
             print("Thank you for using the service ticket system! Goodbye!")
             break
